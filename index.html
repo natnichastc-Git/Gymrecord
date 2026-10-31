@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>บันทึกสุขภาพ</title>
+<title>Calorie & Workout</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Prompt:wght@500;600;700&display=swap" rel="stylesheet">
@@ -1013,7 +1013,7 @@ function headHTML(){
     (S.date!==todayKey()?'<button class="back-today" data-act="today">กลับไปวันนี้</button>':'');
 }
 function tabsHTML(){
-  return '<div class="in"><div class="brand">บันทึกสุขภาพ</div>'+TABS.map(x=>'<button class="tab '+x[3]+(S.tab===x[0]?' on':'')+'" data-act="tab" data-t="'+x[0]+'"'+(S.tab===x[0]?' aria-current="page"':'')+'>'+x[2]+'<span>'+x[1]+'</span></button>').join('')+'</div>';
+  return '<div class="in"><div class="brand">Calorie & Workout</div>'+TABS.map(x=>'<button class="tab '+x[3]+(S.tab===x[0]?' on':'')+'" data-act="tab" data-t="'+x[0]+'"'+(S.tab===x[0]?' aria-current="page"':'')+'>'+x[2]+'<span>'+x[1]+'</span></button>').join('')+'</div>';
 }
 
 /* ---------- render: food ---------- */
@@ -1666,7 +1666,7 @@ function pinCard(){
 }
 function authView(){
   const reg=S.authTab==='register';
-  return '<div class="authwrap"><div class="authbrand">บันทึกสุขภาพ</div><p class="authsub">แคลอรี่ เวิร์คเอาท์ และน้ำหนัก ในที่เดียว</p>'+
+  return '<div class="authwrap"><div class="authbrand">Calorie & Workout</div><p class="authsub">แคลอรี่ เวิร์คเอาท์ และน้ำหนัก ในที่เดียว</p>'+
     '<div class="seg"><button class="'+(!reg?'on':'')+'" data-act="authtab" data-t="login">เข้าสู่ระบบ</button><button class="'+(reg?'on':'')+'" data-act="authtab" data-t="register">สมัครสมาชิก</button></div>'+
     '<section class="card">'+
     (reg?'<label class="lbl" for="aname">ชื่อ</label><input id="aname" class="txt" type="text" autocomplete="name" maxlength="40"><div class="gap"></div>':'')+
