@@ -1164,7 +1164,7 @@ function cardioSumCard(R){
 const LV=[
   {t:'เบา',tip:'เบากว่าที่คุณทำเป็นประจำ ถ้าตั้งใจให้เป็นวันฟื้นตัวถือว่าเหมาะ แต่ถ้ายังมีแรงเหลือ ลองเพิ่มเซ็ตหรือเพิ่มน้ำหนักในครั้งหน้า'},
   {t:'ดี',tip:'ออกกำลังกายได้ดี ต่ำกว่าที่คุณทำประจำเล็กน้อย ถ้าวันนี้รู้สึกมีแรง ครั้งหน้าลองเพิ่มอีกนิด'},
-  {t:'GREAT',tip:'เยี่ยม! หนักพอดีเมื่อเทียบกับที่คุณทำประจำ เป็นระดับที่ช่วยพัฒนาต่อเนื่อง อย่าลืมกินโปรตีนและนอนให้พอเพื่อฟื้นตัว'},
+  {t:'เยี่ยม',tip:'เยี่ยม! หนักพอดีเมื่อเทียบกับที่คุณทำประจำ เป็นระดับที่ช่วยพัฒนาต่อเนื่อง อย่าลืมกินโปรตีนและนอนให้พอเพื่อฟื้นตัว'},
   {t:'หนัก',tip:'หนักกว่าปกติอย่างชัดเจน กินให้พอและนอนให้เต็มที่ วันถัดไปควรเบาลงหรือพัก'},
   {t:'หนักมาก',tip:'หนักมากเมื่อเทียบกับที่คุณทำประจำ เสี่ยงล้าสะสม แนะนำพักหรือฝึกเบา ๆ 1–2 วัน ดื่มน้ำและกินให้พอ'}
 ];
@@ -1237,7 +1237,7 @@ function evalInner(k,ctx){
   const d=S.days[k];
   if(d&&isRest(d)&&!isWorkoutDay(d))return '<div class="ev-h l1"><div class="ev-badge">วันพัก</div><div><b>วันนี้เป็นวันพัก</b><small>ให้ร่างกายได้ฟื้นตัว นอนให้พอและกินโปรตีนให้ถึงเป้า</small></div></div>';
   const e=evalDay(k,ctx);
-  if(!e)return '<div class="ev-h l0"><div class="ev-badge">ยังไม่มี</div><div><b>ยังไม่มีเวิร์คเอาท์ของวันนี้</b><small>บันทึกเซ็ตหรือคาร์ดิโอ แล้วระบบจะประเมินให้ว่า เบา ดี GREAT หรือหนัก</small></div></div>';
+  if(!e)return '<div class="ev-h l0"><div class="ev-badge">ยังไม่มี</div><div><b>ยังไม่มีเวิร์คเอาท์ของวันนี้</b><small>บันทึกเซ็ตหรือคาร์ดิโอ แล้วระบบจะประเมินให้ว่า เบา ดี เยี่ยม หรือหนัก</small></div></div>';
   const lv=LV[e.lv],pct=Math.round(e.r*100);
   const mk=Math.min(e.r,2)/2*100;
   const L=e.L;
@@ -1245,7 +1245,7 @@ function evalInner(k,ctx){
     '<div class="gwrap"><div class="gauge">'+LV_CUT.map((w,i)=>'<i class="l'+i+(i===e.lv?' on':'')+'" style="flex:'+w+'"></i>').join('')+'</div><span class="mk2" style="left:'+mk.toFixed(1)+'%"></span></div>'+
     '<div class="glab">'+LV.map((x,i)=>'<span style="flex:'+LV_CUT[i]+'">'+x.t+'</span>').join('')+'</div>'+
     '<p class="ev-tip">'+lv.tip+'</p>';
-  if(e.prs.length)h+='<div class="prs">★ สถิติใหม่'+(e.bumped?' (ยกระดับเป็น GREAT)':'')+': '+e.prs.map(x=>esc(x.name)+' ≈ '+Math.round(x.e1)+' กก. (เดิม '+Math.round(x.prior)+')').join(' · ')+'</div>';
+  if(e.prs.length)h+='<div class="prs">★ สถิติใหม่'+(e.bumped?' (ยกระดับเป็น เยี่ยม)':'')+': '+e.prs.map(x=>esc(x.name)+' ≈ '+Math.round(x.e1)+' กก. (เดิม '+Math.round(x.prior)+')').join(' · ')+'</div>';
   if(e.acwr>1.5)h+='<div class="evnote">ภาระ 7 วันล่าสุดสูงกว่าค่าปกติของคุณ '+Math.round((e.acwr-1)*100)+'% ระวังความล้าสะสม พิจารณาพักหรือฝึกเบาลง</div>';
   else if(e.acwr>0&&e.acwr<0.6)h+='<div class="evnote">7 วันล่าสุดฝึกน้อยกว่าปกติของคุณ ถ้าไม่ได้ตั้งใจพัก ลองกลับมาสม่ำเสมออีกครั้ง</div>';
   const cf=L.cmin>0?L.cp/L.cmin:0;
@@ -1256,7 +1256,7 @@ function evalInner(k,ctx){
     '<div class="mini"><span>ค่าปกติของคุณ</span><span>'+Math.round(e.base)+' คะแนน'+(e.bs?' · เวท '+Math.round(e.bs.v)+(e.bs.ok?' (เฉลี่ย '+e.bs.n+' ครั้ง)':' (เกณฑ์มาตรฐาน)'):'')+(e.bc?' · คาร์ดิโอ '+Math.round(e.bc.v)+(e.bc.ok?' (เฉลี่ย '+e.bc.n+' ครั้ง)':' (เกณฑ์มาตรฐาน)'):'')+'</span></div>'+
     '<p class="fine">คะแนนภาระ = เซ็ตเวทจริง (ไม่รวมวอร์มอัพ) × 6 + ปริมาณเวท (กก.) ÷ 500 + คาร์ดิโอ (นาที × ระดับความหนัก 1–5 จากชีพจรเฉลี่ยเทียบชีพจรสูงสุดประมาณ '+ctx.maxHr+' bpm หรือจากแคลอรี่ต่อนาทีถ้าไม่มีชีพจร) '+
     'แล้วเทียบกับค่าเฉลี่ยของงานแบบเดียวกัน (เวทกับเวท คาร์ดิโอกับคาร์ดิโอ) ใน 28 วันก่อนหน้า ถ้ายังมีน้อยกว่า 3 ครั้งจะใช้เกณฑ์มาตรฐานแทน: ต่ำกว่า 50% เบา · 50–85% ดี · 85–125% GREAT · 125–160% หนัก · เกิน 160% หนักมาก '+
-    'ท่าที่ทำสถิติใหม่ (ค่า 1RM โดยประมาณ) จะยกจาก "ดี" เป็น GREAT นี่เป็นการประเมินคร่าว ๆ จากข้อมูลที่บันทึก ไม่ใช่คำแนะนำทางการแพทย์ ถ้ามีอาการเจ็บหรือเวียนศีรษะควรหยุดและปรึกษาแพทย์</p></details>';
+    'ท่าที่ทำสถิติใหม่ (ค่า 1RM โดยประมาณ) จะยกจาก "ดี" เป็น เยี่ยม นี่เป็นการประเมินคร่าว ๆ จากข้อมูลที่บันทึก ไม่ใช่คำแนะนำทางการแพทย์ ถ้ามีอาการเจ็บหรือเวียนศีรษะควรหยุดและปรึกษาแพทย์</p></details>';
   return h;
 }
 function refreshEval(){
@@ -1293,7 +1293,7 @@ function loadChartCard(R,ctx){
   const avg=on.length?on.reduce((a,b)=>a+b,0)/on.length:0;
   const max=Math.max.apply(null,vals.concat([10]))*1.15;
   const items=shown.map((k,i)=>({k:k,v:vals[i],cls:evs[i]?'l'+evs[i].lv:'',label:shown.length>10?dateShort(k):WD[fromKey(k).getDay()],today:k===t,aria:dateShort(k)+' '+(evs[i]?LV[evs[i].lv].t+' '+Math.round(vals[i])+' คะแนน':'ไม่มีเวิร์คเอาท์')}));
-  return '<section class="card"><div class="tr-h"><h3>ภาระการฝึกรายวัน</h3><span class="chg" style="color:var(--muted)">'+(on.length?'GREAT '+tally[2]+' · หนัก '+(tally[3]+tally[4])+' · เบา '+tally[0]+'<small>จาก '+on.length+' วันที่ออกกำลังกาย</small>':'–')+'</span></div>'+
+  return '<section class="card"><div class="tr-h"><h3>ภาระการฝึกรายวัน</h3><span class="chg" style="color:var(--muted)">'+(on.length?'เยี่ยม '+tally[2]+' · หนัก '+(tally[3]+tally[4])+' · เบา '+tally[0]+'<small>จาก '+on.length+' วันที่ออกกำลังกาย</small>':'–')+'</span></div>'+
     (on.length?barsHTML(items,{max:max,line:avg,fmt:v=>String(Math.round(v))}):'<p class="empty">ยังไม่มีเวิร์คเอาท์ในช่วงนี้</p>')+
     '<div class="legend3">'+LV.map((x,i)=>'<span class="l'+i+'"><i></i>'+x.t+'</span>').join('')+'</div>'+
     '<div class="legend">สีแท่ง = ระดับเทียบกับที่คุณทำประจำ · เส้นประ = ค่าเฉลี่ยในช่วงนี้ ('+Math.round(avg)+' คะแนน)</div></section>';
